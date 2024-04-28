@@ -1,0 +1,25 @@
+# 子线程获取msg为null
+curl http://localhost:8080/v1/send?msg=1
+
+# 线程数为1，第1次可以正确传递，第2次子线程无法获取
+curl http://localhost:8080/v2/send?msg=1
+curl http://localhost:8080/v2/send?msg=2
+
+# 可以正常传递
+curl http://localhost:8080/v3/send?msg=1
+curl http://localhost:8080/v3/send?msg=2
+curl http://localhost:8080/v3/send?msg=3
+
+# 指定 java agent，访问可以正常传递
+java -javaagent:/Users/chengchen/DevTools/repo/com/alibaba/transmittable-thread-local/2.12.6/transmittable-thread-local-2.12.6.jar -jar transmittable-thread-local-demo-0.0.1-SNAPSHOT.jar
+
+curl http://localhost:8080/v4/send?msg=1
+curl http://localhost:8080/v4/send?msg=2
+curl http://localhost:8080/v4/send?msg=3
+
+# 不指定 java agent，只有第1次可以正确传递
+java -jar transmittable-thread-local-demo-0.0.1-SNAPSHOT.jar
+
+curl http://localhost:8080/v4/send?msg=1
+curl http://localhost:8080/v4/send?msg=2
+curl http://localhost:8080/v4/send?msg=3

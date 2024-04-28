@@ -1,0 +1,17 @@
+.DS_Store
+target/
+logs/
+~*
+files/
+*/generated-docs/api.html
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+# jpa buddy plugin 
+.jpb
+application-dev.yml
+data
+
+
